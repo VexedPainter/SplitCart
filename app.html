@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SplitCart – Dashboard | Manage Your Shared Expenses</title>
+  <meta name="description" content="Manage your shared grocery expenses with SplitCart. Create groups, add roommates, track expenses, and auto-settle payments." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🛒</text></svg>" />
+</head>
+<body class="app-body">
+  <!-- Particle canvas background -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- App Navigation -->
+  <nav id="main-nav" class="glass-nav scrolled">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">🛒</span>
+        <span class="logo-text">Split<span class="logo-accent">Cart</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+      </div>
+      <button class="glow-btn nav-cta" id="new-group-btn" style="padding:10px 24px;font-size:0.9rem;">+ New Group</button>
+    </div>
+  </nav>
+
+  <!-- Main App Content -->
+  <main class="app-main">
+    <!-- Floating orbs for depth -->
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+
+    <!-- State: No Groups (Welcome) -->
+    <div class="app-welcome" id="app-welcome">
+      <div class="welcome-content">
+        <div class="welcome-icon">🛒</div>
+        <h1 class="welcome-title">Welcome to <span class="gradient-text">SplitCart</span></h1>
+        <p class="welcome-desc">Create your first group to start splitting grocery expenses with your roommates.</p>
+        <button class="glow-btn glow-btn-lg" id="welcome-create-btn">
+          <span>Create Your First Group</span>
+          <svg class="btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- State: Group Selected -->
+    <div class="app-dashboard" id="app-dashboard" style="display:none;">
+      <!-- Sidebar: Groups List -->
+      <aside class="app-sidebar glass-card" id="app-sidebar">
+        <div class="sidebar-header">
+          <h3>Your Groups</h3>
+          <button class="icon-btn" id="sidebar-add-group" title="New Group">+</button>
+        </div>
+        <div class="groups-list" id="groups-list">
+          <!-- Filled dynamically -->
+        </div>
+      </aside>
+
+      <!-- Main Panel -->
+      <div class="app-panel">
+        <!-- Group Header -->
+        <div class="panel-header glass-card" id="panel-header">
+          <div class="panel-title-row">
+            <div>
+              <span class="panel-emoji" id="panel-emoji">🏠</span>
+              <h2 class="panel-title" id="panel-title">Group Name</h2>
+            </div>
+            <div class="panel-stats">
+              <div class="panel-stat">
+                <span class="panel-stat-value" id="stat-total">₹0</span>
+                <span class="panel-stat-label">Total Expenses</span>
+              </div>
+              <div class="panel-stat">
+                <span class="panel-stat-value" id="stat-members">0</span>
+                <span class="panel-stat-label">Members</span>
+              </div>
+              <div class="panel-stat">
+                <span class="panel-stat-value" id="stat-per-person">₹0</span>
+                <span class="panel-stat-label">Per Person</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="panel-tabs">
+          <button class="tab-btn active" data-tab="members">👥 Roommates</button>
+          <button class="tab-btn" data-tab="expenses">📊 Expenses</button>
+          <button class="tab-btn" data-tab="settlements">⚡ Settlements</button>
+        </div>
+
+        <!-- Tab: Members -->
+        <div class="tab-content active" id="tab-members">
+          <div class="tab-toolbar">
+            <h3>Roommates</h3>
+            <button class="glow-btn" id="add-member-btn" style="padding:10px 24px;font-size:0.85rem;">+ Add Roommate</button>
+          </div>
+          <div class="members-grid" id="members-grid">
+            <!-- Filled dynamically -->
+          </div>
+        </div>
+
+        <!-- Tab: Expenses -->
+        <div class="tab-content" id="tab-expenses" style="display:none;">
+          <div class="tab-toolbar">
+            <h3>Expenses</h3>
+            <button class="glow-btn" id="add-expense-btn" style="padding:10px 24px;font-size:0.85rem;">+ Add Expense</button>
+          </div>
+          <div class="expenses-list" id="expenses-list">
+            <!-- Filled dynamically -->
+          </div>
+        </div>
+
+        <!-- Tab: Settlements -->
+        <div class="tab-content" id="tab-settlements" style="display:none;">
+          <div class="tab-toolbar">
+            <h3>Auto Settlements</h3>
+            <span class="settle-info">Minimized transactions to settle all debts</span>
+          </div>
+          <div class="settlements-list" id="settlements-list">
+            <!-- Filled dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal: Create Group -->
+  <div class="modal-overlay" id="modal-create-group" style="display:none;">
+    <div class="modal glass-card">
+      <div class="modal-header">
+        <h3>Create New Group</h3>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+      <form id="form-create-group">
+        <div class="form-group">
+          <label>Group Name</label>
+          <input type="text" id="input-group-name" placeholder="e.g., Apartment 4B" required />
+        </div>
+        <div class="form-group">
+          <label>Emoji</label>
+          <div class="emoji-picker">
+            <button type="button" class="emoji-opt selected" data-emoji="🏠">🏠</button>
+            <button type="button" class="emoji-opt" data-emoji="🏢">🏢</button>
+            <button type="button" class="emoji-opt" data-emoji="🏡">🏡</button>
+            <button type="button" class="emoji-opt" data-emoji="🎓">🎓</button>
+            <button type="button" class="emoji-opt" data-emoji="🍽️">🍽️</button>
+            <button type="button" class="emoji-opt" data-emoji="👨‍👩‍👧‍👦">👨‍👩‍👧‍👦</button>
+          </div>
+        </div>
+        <button type="submit" class="glow-btn glow-btn-lg" style="width:100%;justify-content:center;">Create Group</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Member -->
+  <div class="modal-overlay" id="modal-add-member" style="display:none;">
+    <div class="modal glass-card">
+      <div class="modal-header">
+        <h3>Add Roommate</h3>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+      <form id="form-add-member">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="input-member-name" placeholder="e.g., Priya" required />
+        </div>
+        <button type="submit" class="glow-btn glow-btn-lg" style="width:100%;justify-content:center;">Add Roommate</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Expense -->
+  <div class="modal-overlay" id="modal-add-expense" style="display:none;">
+    <div class="modal glass-card">
+      <div class="modal-header">
+        <h3>Add Expense</h3>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+      <form id="form-add-expense">
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" id="input-expense-desc" placeholder="e.g., Weekly groceries from BigBasket" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:1;">
+            <label>Amount (₹)</label>
+            <input type="number" id="input-expense-amount" placeholder="e.g., 2500" min="1" step="1" required />
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Category</label>
+            <select id="input-expense-category">
+              <option value="groceries">🛒 Groceries</option>
+              <option value="vegetables">🥬 Vegetables</option>
+              <option value="fruits">🍎 Fruits</option>
+              <option value="dairy">🥛 Dairy</option>
+              <option value="snacks">🍿 Snacks</option>
+              <option value="cleaning">🧹 Cleaning</option>
+              <option value="household">🏠 Household</option>
+              <option value="beverages">☕ Beverages</option>
+              <option value="meat">🍖 Non-Veg</option>
+              <option value="general">📦 General</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Paid By</label>
+          <select id="input-expense-paidby" required>
+            <!-- Filled dynamically -->
+          </select>
+        </div>
+        <button type="submit" class="glow-btn glow-btn-lg" style="width:100%;justify-content:center;">Add Expense</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

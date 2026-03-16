@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SplitCart – Smart Grocery Expense Splitter | Split Bills Effortlessly</title>
+  <meta name="description" content="SplitCart makes splitting grocery bills with roommates effortless. Track expenses, add roommates, and auto-settle payments with our smart expense splitter." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🛒</text></svg>" />
+</head>
+<body>
+  <!-- Particle canvas background -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="glass-nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">🛒</span>
+        <span class="logo-text">Split<span class="logo-accent">Cart</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#settlements" class="nav-link">Settlements</a>
+      </div>
+      <a href="/app.html" class="nav-cta glow-btn" id="nav-cta-btn">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <div class="hero-badge glass-pill">
+          <span class="badge-dot"></span>
+          Smart Expense Splitting
+        </div>
+        <h1 class="hero-title">
+          Split Groceries.<br />
+          <span class="gradient-text">Not Friendships.</span>
+        </h1>
+        <p class="hero-subtitle">
+          The smart way to share grocery expenses with your roommates. 
+          Track, split, and settle — all in one beautiful app.
+        </p>
+        <div class="hero-actions">
+          <a href="/app.html" class="glow-btn glow-btn-lg" id="hero-cta">
+            <span>Start Splitting Free</span>
+            <svg class="btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#how-it-works" class="ghost-btn" id="hero-secondary">See How It Works</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-value" data-count="50000">50K+</span>
+            <span class="stat-label">Active Users</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value" data-count="20">₹20Cr+</span>
+            <span class="stat-label">Settled Monthly</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value" data-count="4.9">4.9★</span>
+            <span class="stat-label">App Rating</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator" id="scroll-indicator">
+      <div class="scroll-mouse">
+        <div class="scroll-dot"></div>
+      </div>
+      <span>Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag glass-pill">Features</span>
+        <h2 class="section-title">Everything You Need to<br/><span class="gradient-text">Split Smart</span></h2>
+        <p class="section-desc">From adding roommates to automatic settlements, SplitCart handles it all with elegance.</p>
+      </div>
+      <div class="features-grid">
+        <!-- Feature Card 1 -->
+        <div class="feature-card glass-card tilt-card" id="feature-roommates">
+          <div class="card-glow"></div>
+          <div class="card-icon-wrap">
+            <div class="card-icon">👥</div>
+          </div>
+          <h3 class="card-title">Add Roommates</h3>
+          <p class="card-desc">Invite your roommates in seconds. Create groups, set avatars, and start tracking together.</p>
+          <div class="card-visual">
+            <div class="mini-avatar-stack">
+              <div class="mini-avatar" style="--hue: 180;">A</div>
+              <div class="mini-avatar" style="--hue: 260;">B</div>
+              <div class="mini-avatar" style="--hue: 320;">C</div>
+              <div class="mini-avatar add-avatar">+</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Card 2 -->
+        <div class="feature-card glass-card tilt-card" id="feature-expenses">
+          <div class="card-glow"></div>
+          <div class="card-icon-wrap">
+            <div class="card-icon">📊</div>
+          </div>
+          <h3 class="card-title">Track Expenses</h3>
+          <p class="card-desc">Log expenses with smart category detection. See who owes what in real time with beautiful charts.</p>
+          <div class="card-visual">
+            <div class="mini-chart">
+              <div class="chart-bar" style="--h: 60%; --color: var(--neon-teal);"></div>
+              <div class="chart-bar" style="--h: 85%; --color: var(--purple);"></div>
+              <div class="chart-bar" style="--h: 45%; --color: var(--neon-pink);"></div>
+              <div class="chart-bar" style="--h: 70%; --color: var(--neon-teal);"></div>
+              <div class="chart-bar" style="--h: 55%; --color: var(--purple);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Card 3 -->
+        <div class="feature-card glass-card tilt-card" id="feature-settlement">
+          <div class="card-glow"></div>
+          <div class="card-icon-wrap">
+            <div class="card-icon">⚡</div>
+          </div>
+          <h3 class="card-title">Auto Settlement</h3>
+          <p class="card-desc">Our smart algorithm minimizes transactions. Settle debts with one tap — no awkward conversations.</p>
+          <div class="card-visual">
+            <div class="mini-settlement">
+              <div class="settle-flow">
+                <span class="settle-node">You</span>
+                <span class="settle-arrow">→</span>
+                <span class="settle-amount">₹2,040</span>
+                <span class="settle-arrow">→</span>
+                <span class="settle-node">Alex</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="how-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag glass-pill">How It Works</span>
+        <h2 class="section-title">Three Steps to<br/><span class="gradient-text">Hassle-Free Splits</span></h2>
+      </div>
+      <div class="steps-container">
+        <div class="step-item" id="step-1">
+          <div class="step-number">01</div>
+          <div class="step-content glass-card tilt-card">
+            <div class="card-glow"></div>
+            <div class="step-dashboard">
+              <div class="dash-header">
+                <div class="dash-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span class="dash-title">Create Group</span>
+              </div>
+              <div class="dash-body">
+                <div class="dash-group-card">
+                  <span class="dash-group-icon">🏠</span>
+                  <div>
+                    <strong>Apartment 4B</strong>
+                    <small>3 roommates</small>
+                  </div>
+                </div>
+                <div class="dash-members">
+                  <div class="dash-member"><span style="background: hsl(180,70%,50%);">S</span> Sarah</div>
+                  <div class="dash-member"><span style="background: hsl(260,70%,50%);">M</span> Mike</div>
+                  <div class="dash-member"><span style="background: hsl(320,70%,50%);">J</span> Julia</div>
+                </div>
+              </div>
+            </div>
+            <h3>Create Your Group</h3>
+            <p>Set up a group for your apartment or shared household. Invite roommates via link or email.</p>
+          </div>
+        </div>
+
+        <div class="step-item" id="step-2">
+          <div class="step-number">02</div>
+          <div class="step-content glass-card tilt-card">
+            <div class="card-glow"></div>
+            <div class="step-dashboard">
+              <div class="dash-header">
+                <div class="dash-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span class="dash-title">Add Expense</span>
+              </div>
+              <div class="dash-body">
+                <div class="dash-expense-row">
+                  <span class="expense-emoji">🥛</span>
+                  <div><strong>Groceries</strong><small>BigBasket</small></div>
+                  <span class="expense-amt">₹5,620</span>
+                </div>
+                <div class="dash-expense-row">
+                  <span class="expense-emoji">🧹</span>
+                  <div><strong>Cleaning</strong><small>DMart</small></div>
+                  <span class="expense-amt">₹1,930</span>
+                </div>
+                <div class="dash-split-bar">
+                  <div class="split-seg" style="width:40%; background: hsl(180,70%,50%);"></div>
+                  <div class="split-seg" style="width:35%; background: hsl(260,70%,50%);"></div>
+                  <div class="split-seg" style="width:25%; background: hsl(320,70%,50%);"></div>
+                </div>
+              </div>
+            </div>
+            <h3>Log Your Expenses</h3>
+            <p>Add receipts, assign categories, and split individually or equally. SplitCart does the math.</p>
+          </div>
+        </div>
+
+        <div class="step-item" id="step-3">
+          <div class="step-number">03</div>
+          <div class="step-content glass-card tilt-card">
+            <div class="card-glow"></div>
+            <div class="step-dashboard">
+              <div class="dash-header">
+                <div class="dash-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span class="dash-title">Settle Up</span>
+              </div>
+              <div class="dash-body">
+                <div class="dash-settle-item">
+                  <div class="settle-pair">
+                    <span class="s-avatar" style="background: hsl(180,70%,50%);">S</span>
+                    <span class="s-arrow">→</span>
+                    <span class="s-avatar" style="background: hsl(260,70%,50%);">M</span>
+                  </div>
+                  <span class="s-amount">₹1,872</span>
+                  <button class="s-pay-btn">Pay</button>
+                </div>
+                <div class="dash-settle-item">
+                  <div class="settle-pair">
+                    <span class="s-avatar" style="background: hsl(320,70%,50%);">J</span>
+                    <span class="s-arrow">→</span>
+                    <span class="s-avatar" style="background: hsl(180,70%,50%);">S</span>
+                  </div>
+                  <span class="s-amount">₹1,274</span>
+                  <button class="s-pay-btn">Pay</button>
+                </div>
+              </div>
+            </div>
+            <h3>One-Tap Settlement</h3>
+            <p>SplitCart minimizes the number of payments needed. Settle everything with one tap.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Money Flow Visualization Section -->
+  <section id="settlements" class="moneyflow-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag glass-pill">Live Settlement</span>
+        <h2 class="section-title">Watch Money Flow<br/><span class="gradient-text">In Real Time</span></h2>
+        <p class="section-desc">Our algorithm finds the simplest way to settle all debts. See it in action.</p>
+      </div>
+      <div class="moneyflow-stage" id="moneyflow-stage">
+        <canvas id="moneyflow-canvas"></canvas>
+        <div class="flow-nodes" id="flow-nodes">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="cta" class="cta-section">
+    <div class="cta-bg-glow"></div>
+    <div class="section-container">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to Split<br/><span class="gradient-text">Smarter?</span></h2>
+        <p class="cta-desc">Join 50,000+ users who never argue about grocery bills again.</p>
+        <div class="cta-actions">
+          <a href="/app.html" class="glow-btn glow-btn-lg" id="final-cta">
+            <span>Start Splitting Free</span>
+            <svg class="btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+        <p class="cta-note">Free forever for up to 5 roommates. No credit card required.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">🛒</span>
+        <span class="logo-text">Split<span class="logo-accent">Cart</span></span>
+      </div>
+      <p class="footer-copy">© 2026 SplitCart. Made with ❤️ for roommates everywhere.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
